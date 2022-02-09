@@ -25,5 +25,21 @@ RSpec.describe 'App Functional Test' do
         'Rigoberto, New York City, 1/5/1962',
       ]
     end
+
+    it 'parses input files and outputs normalized data' do
+      params_order_by_city = params.clone
+      params_order_by_city[:order] = :city
+
+      people_controller = PeopleController.new(params_order_by_city)
+
+      normalized_people = people_controller.normalize
+
+      expect(normalized_people).to eq [
+        'Mckayla, Atlanta, 5/29/1986',
+        'Rhiannon, Los Angeles, 4/30/1974',
+        'Rigoberto, New York City, 1/5/1962',
+        'Elliot, New York City, 5/4/1947'
+      ]
+    end
   end
 end
